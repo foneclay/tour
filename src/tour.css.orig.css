@@ -21,7 +21,7 @@
   transform: translate(-50%, -50%);
   display: block;
   z-index: 100003;
-  /*transition: all 0.3s ease-out;*/
+  transition: all 0.3s ease-out;
 }
 #Tour #Tour-box {
   width: 250px;
@@ -73,25 +73,25 @@
   bottom: 5px;
 }
 #Tour #Tour-box.dark-box #Tour-tip.top {
-  top: -5.5px; /* -5px */
+  top: -5px;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-bottom: 5px solid rgba(0,0,0,0.8);
 }
 #Tour #Tour-box.dark-box #Tour-tip.bottom {
-  bottom: -5.5px;
+  bottom: -5px;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-top: 5px solid rgba(0,0,0,0.8);
 }
 #Tour #Tour-box.dark-box #Tour-tip.side.left {
-  left: -10.5px; /* -10px */
+  left: -10px;
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-right: 5px solid rgba(0,0,0,0.8);
 }
 #Tour #Tour-box.dark-box #Tour-tip.side.right {
-  right: -10.5px;
+  right: -10px;
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-left: 5px solid rgba(0,0,0,0.8);
@@ -149,16 +149,14 @@
 }
 #Tour #Tour-close {
   position: absolute;
-  top: 0;
-  right: 0;
-  margin-top: 0.2rem;
-  margin-right: 0.2rem;
+  top: -7px;
+  right: -7px;
   width: 14px;
   height: 14px;
-/* background: rgba(0, 0, 0, 0.8); */
-/* border-radius: 100%; */
-  font-size: 1.4rem;
-  color: #4F2683;
+  background: rgba(0,0,0,0.8);
+  border-radius: 100%;
+  font-size: 8px;
+  color: #fff;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
@@ -166,40 +164,26 @@
   justify-content: center;
 }
 #Tour #Tour-close:hover {
-  /* background: #ec1d18; */
+  background: #ec1d18;
 }
 #Tour #Tour-content {
   width: 100%;
   height: 100%;
   max-height: 470px;
-  text-align: center;
-  margin-top: 1rem;
-  margin-bottom: 4rem;
-/* margin-left: 2rem; */
   overflow-x: hidden;
   overflow-y: auto;
   position: relative;
- /* border-bottom: solid 32px transparent;
-  padding: 0 4px; */
-  /* font-size: 14px; */
-  font-size: 1.4rem;
-  font-family: Gotham;
-  letter-spacing: -0.05rem;
-}
-
-#Tour-inner-content {
-  margin-left: 0.8rem;
-  margin-right: 0.8rem;
+  border-bottom: solid 32px transparent;
+  padding: 0 4px;
+  font-size: 14px;
 }
 #Tour #Tour-step,
 #Tour #Tour-length {
-  width: .7rem;
-  height: .7rem;
+  width: 24px;
+  height: 24px;
   color: #fff;
-  position: relative; /*absolute */
-  /* bottom: 0.7em; */
-  margin-top: 1.5rem;
-  margin-right: .3rem; 
+  position: absolute;
+  bottom: 0.7em;
   font-size: 12px;
   font-weight: bold;
   border-radius: 50px;
@@ -208,32 +192,21 @@
   justify-content: center;
 }
 #Tour #Tour-step {
-  background-color: #4F2683;
-  opacity: 0.8;
-  /*background: rgba(0,0,0,0.7);*/
-  /*left: 0.7em; */
+  background: rgba(0,0,0,0.7);
+  left: 0.7em;
   z-index: 1;
 }
 #Tour #Tour-length {
- /* background: #ccc; */
- /* left: 2.2em; */
- background-color: #4F2683;
-  opacity: 0.3;
+  background: #ccc;
+  left: 2.2em;
   z-index: 0;
 }
 #Tour #Tour-actions {
   position: absolute;
   bottom: 0.5em;
   right: 0.5em;
-  height: 2.5rem; /*24px
-  /* added style */
-  left: auto;
-  right: auto;
-  width: 95.7%;
-  text-align: center;
-  justify-content: center;
+  height: 24px;
 }
-/*
 #Tour #Tour-actions button {
   height: 100%;
   border: none;
@@ -243,47 +216,9 @@
   color: #fff;
   background-color: #868686;
 }
-*/
-.prev-button {
-  height: 100%;
-  border: none;
- /* border-radius: 2px;
- // font-size: 0.75em;
- // padding: 4px 7px;
-  //color: #fff;
-  // background-color: #868686;*/
-  font-size: 1.2em;
-  font-family: Gotham;
-  font-weight: bold;
-  padding: 0.5rem 1.1rem 0 0.8rem;/*0.3rem .9rem 0 0.7rem;*/
-  color: #979797;
-  background-color: #d4d4d4;;
-  position: absolute;
-  left: 0;
-}
-
-.next-button {
-  height: 100%;
-  border: none;
- /*border-radius: 2px;
- // font-size: 0.75em;
- // padding: 4px 7px;
-  //color: #fff;
-  // background-color: #868686; */
-  font-size: 1.2em;
-  font-family: Gotham;
-  font-weight: bold;
-  padding: 0.5rem 1.1rem 0 0.8rem;
-  color: white;
-  background-color: #4F2683;
-  position: absolute;
-  right: 0;
-}
-/*
 #Tour #Tour-actions button:hover {
   background-color: #6b6b6b;
 }
-*/
 #Tour #Tour-actions button[disabled] {
   opacity: 0.2;
 }
@@ -306,11 +241,9 @@
 #Tour #Tour-actions button.danger:hover {
   background-color: #c01410;
 }
-/*
 #Tour #Tour-previous {
   margin-right: 0.5em;
 }
-*/
 #Tour #Tour-masks .mask {
   position: fixed;
   z-index: 100001;
@@ -345,45 +278,4 @@
   top: 0;
   left: 0;
   pointer-events: none;
-}
-
-#Tour #Tour-actions #pager-dot {
-  display: inline-flex;
-  justify-content: center;
-  position: relative;
- /*margin-left: .3rem */
-}
-
-#video-button {
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-image: url("../../www/assets/images/Play_Button.svg");
- /* background-image: url("PlayButton.svg"); */
-    position: relative;
-    height: 4rem;
-    text-align: right;
-    -webkit-justify-content: right;
-    -ms-flex-pack: center;
-    margin-left: 12rem;
-    margin-right: 12rem;
-    padding-left: 2.8rem;
-    top: 2rem;
-    z-index: 115000;
-    border: 1px solid #fff;
-    border-radius: .5rem;
-    background-color: rgba(0, 0, 0, 0.6);
-    font-family: Gotham-Book;
-}
-
-#play-video {  
-    color: white;
-    text-align: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    z-index: 120000;
-    width: 11rem;
-    height: 4rem;
-    font-size: 1.4rem;
-    background-color: transparent;
 }
