@@ -354,7 +354,7 @@
  /*margin-left: .3rem */
 }
 
-#video-button {
+#div-play {
     background-repeat: no-repeat;
     background-size: contain;
     background-image: url("../../www/assets/images/Play_Button.svg");
@@ -375,7 +375,7 @@
     font-family: Gotham-Book;
 }
 
-#play-video {  
+#play-button {  
     color: white;
     text-align: center;
     -webkit-justify-content: center;
@@ -386,4 +386,14 @@
     height: 4rem;
     font-size: 1.4rem;
     background-color: transparent;
+}
+
+#video-iframe {
+  position:absolute;
+  left:0rem;
+  top:0;
+  z-index:110000;
+  display:flex;
+  width: 100vw;
+  height: 100vh;
 }

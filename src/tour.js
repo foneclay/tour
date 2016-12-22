@@ -83,7 +83,7 @@ exports.default = service;
 function start(tour, videoUrl) {
 
   if (!initialized) {
-    init(videoUrl);
+    init();
     initialized = true;
   }
 
@@ -115,6 +115,21 @@ function start(tour, videoUrl) {
     reject: reject
   });
 
+  if (service.current.play) {
+    var div = document.createElement("div");
+    div.id = "div-play";
+    var button = document.createElement("button");
+    button.id = "play-button";
+    button.value = "";
+    button.innerText = "Play Video";
+    div.appendChild(button);
+    document.querySelector('#Tour').appendChild(div);
+    play(videoUrl)
+  } else {
+    if(document.querySelector("#div-play")) 
+        document.querySelector("#div-play").remove();
+  }
+
   prepView();
   updateView();
 
@@ -123,24 +138,22 @@ function start(tour, videoUrl) {
 
 function play(videoUrl) {
     if (videoUrl !== event) {
-      alert(videoUrl)
-      document.querySelector('#play-video').value = videoUrl;
+      document.querySelector('#play-button').value = videoUrl;
       return;
     }
-    if (document.querySelector('#prova2'))
-        document.querySelector('#prova2').remove();
-    if (document.querySelector('#play-video').innerText === 'Close Video'){
-        document.querySelector('#play-video').innerText = "Play Video"
+    if (document.querySelector('#video-iframe'))
+        document.querySelector('#video-iframe').remove();
+    if (document.querySelector('#play-button').innerText === 'Close Video'){
+        document.querySelector('#play-button').innerText = "Play Video"
         videoUrl.preventDefault(videoUrl);
         return;
     }
     videoUrl.preventDefault(videoUrl);
     var x = document.createElement("iframe")
-    x.id = "prova2";
-    x.style.cssText = ('position:absolute;left:0rem;top:0;z-index:110000;display:flex;width: 100vw;height: 100vh;');
-    x.src = document.querySelector('#play-video').value;
+    x.id = "video-iframe";
+    x.src = document.querySelector('#play-button').value;
     document.querySelector('#Tour').appendChild(x);
-    document.querySelector('#play-video').innerText = "Close Video"
+    document.querySelector('#play-button').innerText = "Close Video"
     return;
 }
 
@@ -148,6 +161,8 @@ function stop() {
   cleanup();
   service.current.reject(errors.interrupted);
   service.current = null;
+  if(document.querySelector("#div-play")) 
+      document.querySelector("#div-play").remove();
 }
 
 function next() {
@@ -201,10 +216,9 @@ function goto(i) {
 // Internals
 // ########################################################################
 
-function init(videoUrl) {
+function init() {
   injectTemplate();
   resolveEventSystem();
-  play(videoUrl);
 }
 
 function prepView() {
@@ -250,7 +264,7 @@ function prepView() {
     ctx: (0, _cashDom2.default)('#Tour-canvas')[0].getContext("2d"),
     scroll: (0, _cashDom2.default)(current.scrollBox),
     target: false,
-    play : (0, _cashDom2.default)('#play-video')
+    play : (0, _cashDom2.default)('#play-button')
   });
 
   Object.assign(dims, {
@@ -312,6 +326,8 @@ function finish() {
   cleanup();
   service.current.resolve();
   service.current = null;
+  if(document.querySelector("#div-play")) 
+      document.querySelector("#div-play").remove();
 }
 
 function cleanup() {
@@ -542,7 +558,7 @@ function moveToTarget() {
 // ########################################################################
 
 
-var template = '\n  <div id="Tour" class="hidden">\n   <div id="video-button"><button value="" id="play-video">Play Video</button></div>\n <div id="Tour-box-wrap">\n      <div id="Tour-box">\n        <div id="Tour-tip" class="top center"></div>\n       <div id="Tour-close">&#10005</div>\n        <div id="Tour-content">\n          <div id="Tour-inner-content"></div>\n        </div>\n        <div id="Tour-actions">\n          <button class="prev-button" id="Tour-previous"></button>\n     <div id="pager-dot"></div>\n      <button class="next-button" id="Tour-next"></button>\n       </div>\n      </div>\n    </div>\n    <div id="Tour-masks">\n      <div class="mask top"></div>\n      <div class="mask right"></div>\n      <div class="mask bottom"></div>\n      <div class="mask left"></div>\n      <div class="mask center"></div>\n    </div>\n    <canvas id="Tour-canvas"></canvas>\n  </div>\n';
+var template = '\n  <div id="Tour" class="hidden">\n   <div id="Tour-box-wrap">\n      <div id="Tour-box">\n        <div id="Tour-tip" class="top center"></div>\n       <div id="Tour-close">&#10005</div>\n        <div id="Tour-content">\n          <div id="Tour-inner-content"></div>\n        </div>\n        <div id="Tour-actions">\n          <button class="prev-button" id="Tour-previous"></button>\n     <div id="pager-dot"></div>\n      <button class="next-button" id="Tour-next"></button>\n       </div>\n      </div>\n    </div>\n    <div id="Tour-masks">\n      <div class="mask top"></div>\n      <div class="mask right"></div>\n      <div class="mask bottom"></div>\n      <div class="mask left"></div>\n      <div class="mask center"></div>\n    </div>\n    <canvas id="Tour-canvas"></canvas>\n  </div>\n';
 
 function injectTemplate() {
   var wrap = document.createElement('div');
@@ -1011,23 +1027,23 @@ function drawEmptyRoundedRectangle(ctx, x, y, x2, y2) {
   ctx.lineTo(dims.window.width, 0);
   ctx.lineTo(dims.window.width / 2, 0);
 
+  // This adds the ability to create circular elements. To use it, type "circle" as a substring in the target element
   if(service.current.steps[service.current.index].target.indexOf("circle")>=0) {
        var distX = Math.abs(x-x2);
        var distY = Math.abs(y-y2);
        radius =  Math.abs(Math.min(distX/2, distY/2))
        ctx.arc(x + (distX/2), y + (distY/2), radius, 0 , 2 * Math.PI);
   } else {
-  
-  ctx.lineTo(dims.window.width / 2, y);
-  ctx.lineTo(x2 - radius, y);
-  ctx.quadraticCurveTo(x2, y, x2, y + radius);
-  ctx.lineTo(x2, y2 - radius);
-  ctx.quadraticCurveTo(x2, y2, x2 - radius, y2);
-  ctx.lineTo(x + radius, y2);
-  ctx.quadraticCurveTo(x, y2, x, y2 - radius);
-  ctx.lineTo(x, y + radius);
-  ctx.quadraticCurveTo(x, y, x + radius, y);
-  ctx.lineTo(dims.window.width / 2, y);
+    ctx.lineTo(dims.window.width / 2, y);
+    ctx.lineTo(x2 - radius, y);
+    ctx.quadraticCurveTo(x2, y, x2, y + radius);
+    ctx.lineTo(x2, y2 - radius);
+    ctx.quadraticCurveTo(x2, y2, x2 - radius, y2);
+    ctx.lineTo(x + radius, y2);
+    ctx.quadraticCurveTo(x, y2, x, y2 - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.lineTo(dims.window.width / 2, y);
   }
 
   ctx.closePath();
