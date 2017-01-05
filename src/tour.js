@@ -695,7 +695,7 @@ function moveBox() {
     // Can Below?
     if (dims.target.margins.offset.fromBottom > maxHeight) {
       // Can Centered?
-      if (dims.target.width > maxWidth) {
+      if (Math.abs(dims.target.offset.left - dims.target.offset.fromRight) + maxWidth < dims.window.width) {
         placeVertically('bottom', 'center');
         return true;
       }
@@ -802,13 +802,13 @@ function moveBox() {
     }
 
     if (h == 'right') {
-      left = dims.target.offset.toRight + current.padding;
+      left = dims.target.offset.toRight + (current.padding - 10);
       translateX = '-100%';
     } else if (h == 'center') {
       left = dims.target.offset.left + dims.target.width / 2;
       translateX = '-50%';
     } else {
-      left = dims.target.offset.left - current.padding;
+      left = dims.target.offset.left - (current.padding - 10);
       translateX = '0';
     }
 
@@ -1031,7 +1031,8 @@ function drawEmptyRoundedRectangle(ctx, x, y, x2, y2) {
   if(service.current.steps[service.current.index].target.indexOf("circle")>=0) {
        var distX = Math.abs(x-x2);
        var distY = Math.abs(y-y2);
-       radius =  Math.abs(Math.min(distX/2, distY/2))
+       radius =  Math.abs(Math.max(distX/2, distY/2))
+       if (radius < 20) radius = 20;
        ctx.arc(x + (distX/2), y + (distY/2), radius, 0 , 2 * Math.PI);
   } else {
     ctx.lineTo(dims.window.width / 2, y);

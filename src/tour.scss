@@ -109,7 +109,7 @@
   left: 5px;
 }
 #Tour #Tour-tip.vertical.center {
-  left: 50%;
+  left: 48%;
 }
 #Tour #Tour-tip.vertical.right {
   right: 5px;
@@ -360,14 +360,14 @@
     background-image: url("../../www/assets/images/Play_Button.svg");
  /* background-image: url("PlayButton.svg"); */
     position: relative;
-    height: 4rem;
+    height: 3.5rem;
     text-align: right;
     -webkit-justify-content: right;
     -ms-flex-pack: center;
     margin-left: 12rem;
     margin-right: 12rem;
     padding-left: 2.8rem;
-    top: 2rem;
+    top: 0.5rem;
     z-index: 115000;
     border: 1px solid #fff;
     border-radius: .5rem;
@@ -383,7 +383,7 @@
     justify-content: center;
     z-index: 120000;
     width: 11rem;
-    height: 4rem;
+    height: 3.5rem;
     font-size: 1.4rem;
     background-color: transparent;
 }
