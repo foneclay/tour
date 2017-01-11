@@ -24,10 +24,10 @@
   /*transition: all 0.3s ease-out;*/
 }
 #Tour #Tour-box {
-  width: 250px;
+  width: 25rem;
   min-height: 69px;
   max-height: 500px;
-  padding: 0.5em;
+  padding: 0.5rem;
   background: #fff;
   box-shadow: 0 6px 19px 2px rgba(0,0,0,0.14);
   border-radius: 2px;
@@ -223,8 +223,8 @@
 }
 #Tour #Tour-actions {
   position: absolute;
-  bottom: 0.5em;
-  right: 0.5em;
+  bottom: 0.5rem;
+  right: 0.5rem;
   height: 2.5rem; /*24px
   /* added style */
   left: auto;
@@ -252,7 +252,7 @@
  // padding: 4px 7px;
   //color: #fff;
   // background-color: #868686;*/
-  font-size: 1.2em;
+  font-size: 1.2rem;
   font-family: Gotham;
   font-weight: bold;
   padding: 0.5rem 1.1rem 0 0.8rem;/*0.3rem .9rem 0 0.7rem;*/
@@ -270,7 +270,7 @@
  // padding: 4px 7px;
   //color: #fff;
   // background-color: #868686; */
-  font-size: 1.2em;
+  font-size: 1.2rem;
   font-family: Gotham;
   font-weight: bold;
   padding: 0.5rem 1.1rem 0 0.8rem;
@@ -354,38 +354,33 @@
  /*margin-left: .3rem */
 }
 
-#div-play {
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-image: url("../../www/assets/images/Play_Button.svg");
- /* background-image: url("PlayButton.svg"); */
-    position: relative;
-    height: 3.5rem;
-    text-align: right;
-    -webkit-justify-content: right;
-    -ms-flex-pack: center;
-    margin-left: 12rem;
-    margin-right: 12rem;
-    padding-left: 2.8rem;
-    top: 0.5rem;
-    z-index: 115000;
-    border: 1px solid #fff;
-    border-radius: .5rem;
-    background-color: rgba(0, 0, 0, 0.6);
-    font-family: Gotham-Book;
-}
 
 #play-button {  
-    color: white;
-    text-align: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    z-index: 120000;
-    width: 11rem;
-    height: 3.5rem;
-    font-size: 1.4rem;
-    background-color: transparent;
+  color: white;
+  text-align: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  background-image: url("../../www/assets/images/Play_Button.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: 120000;
+  width: 12rem;
+  font-size: 1.4rem;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 1rem;
+  right: 1rem;
+  height: 3.5rem;
+  -ms-flex-pack: center;
+  padding-left: 3rem;
+  padding-right: 0;
+  top: 0.5rem;
+  border: 1px solid #fff;
+  border-radius: .5rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  font-family: Gotham-Book;
 }
 
 #video-iframe {

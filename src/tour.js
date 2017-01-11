@@ -116,18 +116,15 @@ function start(tour, videoUrl) {
   });
 
   if (service.current.play) {
-    var div = document.createElement("div");
-    div.id = "div-play";
     var button = document.createElement("button");
     button.id = "play-button";
     button.value = "";
     button.innerText = "Play Video";
-    div.appendChild(button);
-    document.querySelector('#Tour').appendChild(div);
+    document.querySelector('#Tour').appendChild(button);
     play(videoUrl)
   } else {
-    if(document.querySelector("#div-play")) 
-        document.querySelector("#div-play").remove();
+    if(document.querySelector("#play-button")) 
+        document.querySelector("#play-button").remove();
   }
 
   prepView();
@@ -161,8 +158,8 @@ function stop() {
   cleanup();
   service.current.reject(errors.interrupted);
   service.current = null;
-  if(document.querySelector("#div-play")) 
-      document.querySelector("#div-play").remove();
+  if(document.querySelector("#play-button")) 
+      document.querySelector("#play-button").remove();
 }
 
 function next() {
@@ -326,8 +323,8 @@ function finish() {
   cleanup();
   service.current.resolve();
   service.current = null;
-  if(document.querySelector("#div-play")) 
-      document.querySelector("#div-play").remove();
+  if(document.querySelector("#play-button")) 
+      document.querySelector("#play-button").remove();
 }
 
 function cleanup() {
@@ -646,6 +643,22 @@ function onWindowScroll() {
   });
 }
 
+function getRootElementSize( ) {
+    // Returns a number
+    return parseFloat(
+        // of the computed font-size, so in px
+        getComputedStyle(
+            // for the root <html> element
+            document.documentElement
+        )
+        .fontSize
+    );
+}
+function convertRem(value) {
+    return value * getRootElementSize();
+}
+
+
 function stepExists(i) {
   return i >= 0 && i < service.current.steps.length;
 }
@@ -659,8 +672,7 @@ function moveBox() {
 
   var currentStep = service.current.steps[service.current.index];
   var maxHeight = service.current.maxHeight;
-  var maxWidth = service.current.maxWidth;
-
+  var maxWidth = convertRem(25); // convert maxWidth: rem --> px
   // Default Position?
   if (!els.target) {
     placeCentered();
@@ -695,7 +707,7 @@ function moveBox() {
     // Can Below?
     if (dims.target.margins.offset.fromBottom > maxHeight) {
       // Can Centered?
-      if (Math.abs(dims.target.offset.left - dims.target.offset.fromRight) + maxWidth < dims.window.width) {
+      if (Math.max(dims.target.offset.left,dims.target.offset.fromRight) + Math.max((maxWidth/2)+(dims.target.width/2), dims.target.width) <= dims.window.width) {
         placeVertically('bottom', 'center');
         return true;
       }
@@ -768,7 +780,7 @@ function moveBox() {
     // Can Above?
     if (dims.target.margins.offset.top > maxHeight) {
       // Can Centered?
-      if (dims.target.width > maxWidth) {
+      if (Math.max(dims.target.offset.left,dims.target.offset.fromRight) + Math.max((maxWidth/2)+(dims.target.width/2), dims.target.width) <= dims.window.width) {
         placeVertically('top', 'center');
         return true;
       }
@@ -1017,6 +1029,7 @@ function moveMasks() {
 
 function drawEmptyRoundedRectangle(ctx, x, y, x2, y2) {
   var radius = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0;
+  var target = service.current.steps[service.current.index].target;
   
   ctx.beginPath();
 
@@ -1028,11 +1041,12 @@ function drawEmptyRoundedRectangle(ctx, x, y, x2, y2) {
   ctx.lineTo(dims.window.width / 2, 0);
 
   // This adds the ability to create circular elements. To use it, type "circle" as a substring in the target element
-  if(service.current.steps[service.current.index].target.indexOf("circle")>=0) {
+  if(target.indexOf("circle")>=0) {
        var distX = Math.abs(x-x2);
        var distY = Math.abs(y-y2);
        radius =  Math.abs(Math.max(distX/2, distY/2))
-       if (radius < 20) radius = 20;
+       if (/\d+/g.test(target)) 
+         radius = target.match(/\d+/g).join([]);
        ctx.arc(x + (distX/2), y + (distY/2), radius, 0 , 2 * Math.PI);
   } else {
     ctx.lineTo(dims.window.width / 2, y);
