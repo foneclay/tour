@@ -189,7 +189,7 @@ function previous() {
   if (!stepExists(service.current.index - 1)) {
     return;
   }
-  return doAfter(service.current.index).then(function (res) {
+  return doAfterPrev(service.current.index).then(function (res) {
     service.current.index--;
     return doBefore(service.current.index);
   }).then(function (res) {
@@ -309,12 +309,26 @@ function doBefore(i) {
   return Promise.resolve();
 }
 
+// this does the istructions after the user pushed the 'next' button
 function doAfter(i) {
+  console.log("doafter")
   if (!service.current.steps[i]) {
     return Promise.resolve();
   }
   if (service.current.steps[i].after) {
     return service.current.steps[i].after();
+  }
+  return Promise.resolve();
+}
+
+// this does the istructions after the user pushed the 'prev' button
+function doAfterPrev(i) {
+   console.log("doAfterPrev")
+  if (!service.current.steps[i]) {
+    return Promise.resolve();
+  }
+  if (service.current.steps[i].prev) {
+    return service.current.steps[i].prev();
   }
   return Promise.resolve();
 }
