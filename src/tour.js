@@ -311,7 +311,6 @@ function doBefore(i) {
 
 // this does the istructions after the user pushed the 'next' button
 function doAfter(i) {
-  console.log("doafter")
   if (!service.current.steps[i]) {
     return Promise.resolve();
   }
@@ -323,7 +322,6 @@ function doAfter(i) {
 
 // this does the istructions after the user pushed the 'prev' button
 function doAfterPrev(i) {
-   console.log("doAfterPrev")
   if (!service.current.steps[i]) {
     return Promise.resolve();
   }
