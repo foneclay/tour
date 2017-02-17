@@ -138,18 +138,20 @@ function play(videoUrl) {
       document.querySelector('#play-button').value = videoUrl;
       return;
     }
-    if (document.querySelector('#video-iframe'))
-        document.querySelector('#video-iframe').remove();
+    if (document.querySelector('#tutorialVideo'))
+        document.querySelector('#tutorialVideo').remove();
     if (document.querySelector('#play-button').innerText === 'Close Video'){
         document.querySelector('#play-button').innerText = "Play Video"
         videoUrl.preventDefault(videoUrl);
         return;
     }
     videoUrl.preventDefault(videoUrl);
+    var div = document.createElement("div")
+    div.id = "tutorialVideo";
     var x = document.createElement("iframe")
     x.id = "video-iframe";
     x.src = document.querySelector('#play-button').value;
-    document.querySelector('#Tour').appendChild(x);
+    document.querySelector('#Tour').appendChild(div).appendChild(x);;
     document.querySelector('#play-button').innerText = "Close Video"
     return;
 }
