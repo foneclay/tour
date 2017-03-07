@@ -522,7 +522,7 @@ function scrollToTarget() {
     } else {
       _TinyAnimate2.default.animate(els.scroll[0].scrollTop, newScrollTop, service.current.animationDuration, function (d) {
         els.scroll[0].scrollTop = d;
-      }, 'easeOutQuad', function () {
+      }, 'ease', function () { // easeOutQuad removed to fix bug for the iOS animation
         els.seeking = false;
         resolve();
       });
@@ -1031,7 +1031,7 @@ function moveMasks() {
 
       drawEmptyRoundedRectangle(els.ctx, dims.canvas.left, dims.canvas.top, dims.canvas.right, dims.canvas.bottom, 5);
       els.ctx.fill();
-    }, 'easeOutQuad', function () {
+    }, 'ease', function () { // easeOutQuad removed to fix bug for the iOS animation
       resolve();
     });
   });
